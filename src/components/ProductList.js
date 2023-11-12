@@ -14,28 +14,42 @@ const ProductList = () => {
   }, [status, dispatch]);
 
   if (status === 'loading') {
-    return <p>Loading...</p>;
+    return (
+      <div className="text-center">
+        <p>Loading...</p>
+      </div>
+    );
   }
 
   if (status === 'failed') {
-    return <p>Failed to load products.</p>;
+    return (
+      <div className="text-center">
+        <p>Failed to load products.</p>
+      </div>
+    );
   }
 
   return (
-    <div>
-      {categories.map(
-        (category) =>
-          category.products.length > 0 && (
-            <div key={category._id}>
-              <h3>{category.name}</h3>
-              <ul>
-                {category.products.map((product) => (
-                  <li key={product._id}>{product.name}</li>
-                ))}
-              </ul>
-            </div>
-          )
-      )}
+    <div className="mt-3">
+      <div className="row">
+        {categories.map(
+          (category) =>
+            category.products.length > 0 && (
+              <div key={category._id} className="col">
+                <h3>
+                  {category.name} - {category.products.length} products
+                </h3>
+                <ul className="list-group">
+                  {category.products.map((product, index) => (
+                    <li key={product._id} className="list-group-item">
+                      {index + 1}. {product.name} - ({product.count})
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )
+        )}
+      </div>
     </div>
   );
 };

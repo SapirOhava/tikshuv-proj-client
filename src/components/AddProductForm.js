@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchCategoriesWithProducts } from '../store/slices/categoriesSlice';
-import { addProduct } from '../store/slices/productSlice';
-
+import {
+  addProduct,
+  fetchCategoriesWithProducts,
+} from '../store/slices/categoriesSlice';
 const CategorySelect = () => {
   const [productName, setProductName] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -10,9 +11,9 @@ const CategorySelect = () => {
   const dispatch = useDispatch();
   const categories = useSelector((state) => state.categories.categories);
   const status = useSelector((state) => state.categories.status);
+  const totalProducts = useSelector((state) => state.categories.totalProducts);
   const error = useSelector((state) => state.categories.error);
 
-  // Fetch categories when component mounts and status is 'idle'
   useEffect(() => {
     if (status === 'idle') {
       dispatch(fetchCategoriesWithProducts());
@@ -29,36 +30,41 @@ const CategorySelect = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="productName">Product Name:</label>
+    <form onSubmit={handleSubmit} className="row g-3 align-items-center">
+      <div className="col-auto">
         <input
           id="productName"
           type="text"
+          placeholder="Product"
+          className="form-control"
           value={productName}
           onChange={(e) => setProductName(e.target.value)}
         />
       </div>
-      <div>
-        <label htmlFor="categorySelect">Category:</label>
+      <div className="col-auto">
         <select
           id="categorySelect"
+          className="form-select"
           value={selectedCategory}
           onChange={(e) => setSelectedCategory(e.target.value)}
           disabled={status === 'loading'}
         >
           <option value="">Select a Category</option>
           {status === 'succeeded' &&
-            categories.map((category, index) => (
-              <option key={index} value={category._id}>
+            categories.map((category) => (
+              <option key={category._id} value={category._id}>
                 {category.name}
               </option>
             ))}
         </select>
       </div>
-      <div>
-        <button type="submit">Add</button>
+      <div className="col-auto">
+        <button type="submit" className="btn btn-primary">
+          Add
+        </button>
       </div>
+      <div className="col-auto">Total Products: {totalProducts}</div>
+      {error && <div className="col-12">{error}</div>}
     </form>
   );
 };
