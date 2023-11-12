@@ -1,13 +1,13 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-export const fetchCategories = createAsyncThunk(
-  'categories/fetchCategories',
+export const fetchCategoriesWithProducts = createAsyncThunk(
+  'categories/fetchCategoriesWithProducts',
   async () => {
     const response = await fetch(
-      `${process.env.REACT_APP_SERVER_URL}/api/categories`
+      `${process.env.REACT_APP_SERVER_URL}/api/categories/products`
     );
-    const data = await response.json();
-    return data;
+    const categoriesWithProducts = await response.json();
+    return categoriesWithProducts;
   }
 );
 
@@ -20,14 +20,14 @@ const categoriesSlice = createSlice({
   },
   reducers: {},
   extraReducers: {
-    [fetchCategories.pending]: (state, action) => {
+    [fetchCategoriesWithProducts.pending]: (state) => {
       state.status = 'loading';
     },
-    [fetchCategories.fulfilled]: (state, action) => {
+    [fetchCategoriesWithProducts.fulfilled]: (state, action) => {
       state.status = 'succeeded';
       state.categories = action.payload;
     },
-    [fetchCategories.rejected]: (state, action) => {
+    [fetchCategoriesWithProducts.rejected]: (state, action) => {
       state.status = 'failed';
       state.error = action.error.message;
     },

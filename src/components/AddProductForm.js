@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchCategories } from '../store/slices/categoriesSlice';
+import { fetchCategoriesWithProducts } from '../store/slices/categoriesSlice';
 import { addProduct } from '../store/slices/productSlice';
 
 const CategorySelect = () => {
@@ -15,7 +15,7 @@ const CategorySelect = () => {
   // Fetch categories when component mounts and status is 'idle'
   useEffect(() => {
     if (status === 'idle') {
-      dispatch(fetchCategories());
+      dispatch(fetchCategoriesWithProducts());
     }
   }, [status, dispatch]);
 
@@ -50,7 +50,7 @@ const CategorySelect = () => {
           <option value="">Select a Category</option>
           {status === 'succeeded' &&
             categories.map((category, index) => (
-              <option key={index} value={category.id}>
+              <option key={index} value={category._id}>
                 {category.name}
               </option>
             ))}
