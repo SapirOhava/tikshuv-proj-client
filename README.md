@@ -22,33 +22,30 @@ To get a local copy up and running, follow these simple steps.
 
 ### Prerequisites
 
-- npm
-  ```sh
-  npm install npm@latest -g
-  ```
+```sh
+npm install npm@latest -g
+```
 
 ### Installation
 
 1. Clone the repo
 
-- npm
-  ```sh
-  git clone [your-repo-link]
-  ```
+```sh
+git clone [your-repo-link]
+```
 
 2. Install NPM packages
 
-- npm
-  ```sh
-  npm install
-  ```
+```sh
+npm install
+```
 
 ### Usage
 
 Run the app in the development mode with:
 
-- npm
-  ```sh
-  npm start
-  ```
-  Open http://localhost:3000 to view it in the browser.
+```sh
+npm start
+```
+
+Open http://localhost:3000 to view it in the browser.
